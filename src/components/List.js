@@ -15,13 +15,20 @@ export default class List extends Component {
     };
 
     render() {
-        const { list } = this.props;
+        const { list, error, isLoaded } = this.props;
 
-        return (
-            <div style={styles.container}>
-                { list.map(this.renderItem) }
-            </div>
-        );
+        if (error) {
+            return <div>Error: {error.message}</div>;
+        } else if (!isLoaded) {
+            return <div>Loading...</div>;
+        } else {
+            return (
+                <div style={styles.container}>
+                    { list.map(this.renderItem) }
+                </div>
+            );
+        }
+
     }
 }
 

@@ -3,11 +3,21 @@ import { FormGroup, InputGroup, Button } from "@blueprintjs/core";
 
 export default class SearchBox extends Component {
 
-    state = {queryStr: this.props.value}
+    state = {
+        queryStr: 'English'
+    }
 
     handleClick = () => {
         const {queryStr} = this.state;
-        this.props.onSearch(queryStr);
+
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetBaseUrl = proxyUrl + 'http://api.brewerydb.com/v2/',
+            key = 'key=b7da1c5827026053a276f0dbe2234962';
+
+        const targetUrl = queryStr ? targetBaseUrl + 'search/style?' + key  + '&q=' + queryStr
+            :  targetBaseUrl + 'styles/?' + key;
+
+        this.props.onSearch(targetUrl);
     }
 
     handleChange = (e) => {
