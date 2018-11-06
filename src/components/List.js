@@ -8,8 +8,8 @@ export default class List extends Component {
         return (
             <li key={item.id} onClick={() => onClickItem(i)}
                 style={styles.item}>
-                <div>{item.nameDisplay}</div>
-                <div>{item.description}</div>
+                <div>{item.name}</div>
+
             </li>
         );
     };
