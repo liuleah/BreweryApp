@@ -2,7 +2,7 @@
   "name": "brewery-db",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://liuleah.github.io/BreweryApp",
+  "homepage": "https://liuleah.github.io/BreweryApp",
   "dependencies": {
     "@blueprintjs/core": "^3.8.0",
     "react": "^16.6.0",

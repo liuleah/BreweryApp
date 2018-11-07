@@ -3,6 +3,8 @@ import { FormGroup, InputGroup, Button, Card } from "@blueprintjs/core";
 
 export default class SearchBox extends Component {
 
+    //TODO: need to clear the beer list if the query string is changed
+    //set default search string to English for demoing purpose
     state = {
         queryStr: 'English'
     }
@@ -14,6 +16,7 @@ export default class SearchBox extends Component {
             targetBaseUrl = proxyUrl + 'http://api.brewerydb.com/v2/',
             key = 'key=b7da1c5827026053a276f0dbe2234962';
 
+        //show all styles if search string is empty
         const targetUrl = queryStr ? targetBaseUrl + 'search/style?' + key  + '&q=' + queryStr
             :  targetBaseUrl + 'styles/?' + key;
 

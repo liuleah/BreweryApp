@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Card } from "@blueprintjs/core";
 import List from "./List";
 import SearchBox from "./SearchBox";
 import './list.css';
