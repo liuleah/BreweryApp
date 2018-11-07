@@ -35,6 +35,7 @@ class App extends Component {
             isLoaded: false,
         });
 
+        //fetch the name when style is selected
         fetch(Url)
             .then(res => res.json())
             .then(
