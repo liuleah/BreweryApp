@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-//import './App.css';
+import { Card } from "@blueprintjs/core";
 import List from "./List";
 import SearchBox from "./SearchBox";
+import './list.css';
 
 
 class Styles extends Component {
     state = {
         error: null,
-        isLoaded: false,
+        isLoaded: true,
         showAll: false,
         items: []
     };
 
     showResults = (result) => {
+        //show result for styles
+
         let styles = result.data.map(style => {
             return {
                 id: style.id,
@@ -28,6 +31,10 @@ class Styles extends Component {
     }
 
     search = (Url) =>{
+        this.setState({
+            isLoaded: false,
+        });
+
         fetch(Url)
             .then(res => res.json())
             .then(
@@ -44,14 +51,15 @@ class Styles extends Component {
     }
 
 
-    showBeerList = (index) => {
-        //show all of the beers of one style
+    showBeerList = (item, index) => {
+        const styleId = item.id;
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetBaseUrl = proxyUrl + 'http://api.brewerydb.com/v2/',
+            key = 'key=b7da1c5827026053a276f0dbe2234962';
 
-        // const {items} = this.state;
+        const targetUrl =  targetBaseUrl + 'beers?' + key  + '&styleId=' + styleId;
 
-        // this.setState({
-        //     items: items.filter((item, i) => i !== index),
-        // }
+        this.props.onStyleClick(targetUrl);
     }
 
     render() {
@@ -63,6 +71,10 @@ class Styles extends Component {
                     placeholder="Search beer styles..."
                     onSearch={this.search}
                 />
+
+                <div>
+
+                </div>
 
                 <List
                     list={items}

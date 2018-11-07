@@ -8,10 +8,10 @@ export default class Nav extends Component {
 
         return (
             <div className="nav-wrapper">
-                <div>
+                <div className="nav">
                     <header>
                         <img src={logo} className="nav-logo" alt="logo" />
-                        <div>Brewery List</div>
+                        <h4>Explore the beer you like</h4>
                     </header>
                     <div className="nav-content">{children}</div>
                 </div>

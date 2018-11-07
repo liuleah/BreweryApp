@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-//import './App.css';
 import List from "./List";
+import SearchBox from "./SearchBox";
 
 class BeerList extends Component {
     state = {
         error: null,
-        isLoaded: false,
-        items: []
+        isLoaded: true,
+        showAll: false,
+        beers: []
     };
 
     componentDidMount() {
@@ -34,28 +35,35 @@ class BeerList extends Component {
 
 
     onRemoveTodo = (index) => {
-        const {items} = this.state;
+        const {beers} = this.state;
 
         this.setState({
-            items: items.filter((item, i) => i !== index),
+            beers: beers.filter((item, i) => i !== index),
         })
+    }
+
+    showBeer = (id) => {
+
     }
 
 
     render() {
-        const { error, isLoaded, items } = this.state;
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
+        // const { error, isLoaded } = this.state;
+        const {error, isLoaded, beers} = this.props;
+
+        return (
+            <div className="style-wrapper">
+                <div>
+
+                </div>
                 <List
-                    list={items}
-                    onClickItem={this.onRemoveTodo}
+                    list={beers}
+                    error={error}
+                    isLoaded={isLoaded}
+                    onClickItem={this.showBeer}
                 />
-            );
-        }
+            </div>
+        );
     }
 
 }

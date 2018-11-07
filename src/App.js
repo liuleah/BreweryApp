@@ -2,26 +2,68 @@ import React, { Component } from 'react';
 import './App.css';
 import Styles from "./components/Styles";
 import BeerList from "./components/BeerList";
-import SearchBox from "./components/SearchBox";
 import Nav from "./components/Nav";
-import { Button, Intent, Spinner } from "@blueprintjs/core";
+
 
 class App extends Component {
 
+    state = {
+        error: null,
+        isLoaded: true,
+        beers: []
+    };
+
+    showResults = (result) => {
+        let beers = result.data.map(beer => {
+            return {
+                id: beer.id,
+                name: beer.nameDisplay,
+                abv: beer.abv,
+                ibu: beer.ibu,
+                glass: beer.glass
+            }
+        });
+
+        this.setState({
+            isLoaded: true,
+            beers: beers
+        });
+    }
+
+    onStyleClick  = (Url) => {
+        this.setState({
+            isLoaded: false,
+        });
+
+        fetch(Url)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.showResults(result);
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
     render() {
+        const {beers, error, isLoaded} = this.state;
+
         return (
             <div className="App">
                 <Nav>
-                    <Styles/>
+                    <Styles onStyleClick={this.onStyleClick}/>
                 </Nav>
-                <div className="App-main">
-                    {/*<Spinner*/}
-                        {/*intent={Intent.PRIMARY}*/}
-                        {/*size={Spinner.SIZE_SMALL}*/}
-                    {/*/>*/}
-                    <SearchBox label="Search beer by name"
-                               placeholder="Search beer..."/>
-                    <BeerList />
+
+                <div className="beer-list-container">
+                    <BeerList
+                        beers={beers}
+                        error={error}
+                        isLoaded={isLoaded}/>
                 </div>
 
             </div>
@@ -31,8 +73,3 @@ class App extends Component {
 
 export default App;
 
-// const styles = {
-//     appContainer: {
-//         display: "flex"
-//     }
-// };
